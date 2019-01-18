@@ -1,4 +1,4 @@
-module lab4_1 (
+module DynamicBars (
 // VGA In-OutW
 input logic clk,
 input logic rst,
