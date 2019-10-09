@@ -8,7 +8,6 @@ module img_proc (
 	output logic[3:0] green,
 	output logic[3:0] blue,
 
-	//input logic sw_select,
 	input logic sw_kernel,
 	input logic sw_operator,
 	input logic key,
@@ -17,7 +16,6 @@ module img_proc (
 
 logic [63:0] data_out;
 logic [63:0] mult_fdata;
-//logic [5:0] mult_faddr;
 logic [5:0] address_in;
 logic wr_en_i;
 logic wr_en_i1;
@@ -95,7 +93,6 @@ ram_infer1 r2(
 	.rd_data_o (ram2_data_out)
 );
 
-//filter data input logic (k-1)
 always_comb begin
 	if (counter==0)
 		mult_fdata = data_out;
@@ -114,7 +111,6 @@ always_comb begin
 	end
 end
 
-//RAM enable logic
 always_comb begin
 	if (counter%2==0) begin
 		wr_en_i1=1;
@@ -126,7 +122,6 @@ always_comb begin
 	
 end
 		
-//VGA display logic (k-1)
 always_comb begin
 	if(counter==0) begin
 		mult_data=data_out;
@@ -137,7 +132,6 @@ always_comb begin
 	end
 end
 
-//edge-detection for filter
 always_ff @(posedge clk, negedge rst) begin
 	if (~rst) begin
 		out<=1;
@@ -168,16 +162,9 @@ end
 
 always_ff @(posedge clk, negedge rst) begin
 	if (~rst) begin
-		//sw_kernel_new<=0;
-		//sw_operator_new<=0;
-		//enable<=0;
 		counter<=0;
 	end else if (outs) begin
-		//sw_kernel_new<=sw_kernel;
-		//sw_operator_new<=sw_operator;
-		//enable<=1;
 		counter<=counter+1;
-		//wr_addr_i<=0;
 	end
 end
 
